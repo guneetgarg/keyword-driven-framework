@@ -35,6 +35,11 @@ public class DriverScript {
 	public void execute() {
 		DriverScript.getDSInstance();
 		keywords.openBrowser("chrome");
+		keywords.closeBroswer();
+	}
+	
+	public void checkTestCaseRunMode(){
+		
 	}
 
 }

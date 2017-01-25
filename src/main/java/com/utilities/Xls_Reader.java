@@ -23,7 +23,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Xls_Reader {
 	public static String filename = System.getProperty("user.dir")
-			+ "\\src\\config\\testcases\\TestData.xlsx";
+			+ "\\KeywordDriven\\src\\test\\resources\\TestSuite.xlsxx";
+
 	public String path;
 	public FileInputStream fis = null;
 	public FileOutputStream fileOut = null;
@@ -75,8 +76,7 @@ public class Xls_Reader {
 			row = sheet.getRow(0);
 			for (int i = 0; i < row.getLastCellNum(); i++) {
 				// System.out.println(row.getCell(i).getStringCellValue().trim());
-				if (row.getCell(i).getStringCellValue().trim()
-						.equals(colName.trim()))
+				if (row.getCell(i).getStringCellValue().trim().equals(colName.trim()))
 					col_Num = i;
 			}
 			if (col_Num == -1)
@@ -90,7 +90,8 @@ public class Xls_Reader {
 
 			if (cell == null)
 				return "";
-			// System.out.println("Getting cell type value "+cell.getCellType());
+			// System.out.println("Getting cell type value
+			// "+cell.getCellType());
 			if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
 				String cellText = String.valueOf(cell.getStringCellValue());
 
@@ -98,8 +99,7 @@ public class Xls_Reader {
 				System.out.println("TEST DATA " + test);
 
 				return cellText;
-			} else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC
-					|| cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+			} else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC || cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
 
 				String cellText = String.valueOf(cell.getNumericCellValue());
 				System.out.println("Original String " + cellText);
@@ -117,10 +117,8 @@ public class Xls_Reader {
 
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(DateUtil.getJavaDate(d));
-					cellText = (String.valueOf(cal.get(Calendar.YEAR)))
-							.substring(2);
-					cellText = cal.get(Calendar.DAY_OF_MONTH) + "/"
-							+ cal.get(Calendar.MONTH) + 1 + "/" + cellText;
+					cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+					cellText = cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + 1 + "/" + cellText;
 
 					// System.out.println(cellText);
 
@@ -135,8 +133,7 @@ public class Xls_Reader {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			return "row " + rowNum + " or column " + colName
-					+ " does not exist in xls";
+			return "row " + rowNum + " or column " + colName + " does not exist in xls";
 		}
 	}
 
@@ -161,8 +158,7 @@ public class Xls_Reader {
 
 			if (cell.getCellType() == Cell.CELL_TYPE_STRING)
 				return cell.getStringCellValue();
-			else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC
-					|| cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+			else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC || cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
 
 				String cellText = String.valueOf(cell.getNumericCellValue());
 				if (DateUtil.isCellDateFormatted(cell)) {
@@ -171,10 +167,8 @@ public class Xls_Reader {
 
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(DateUtil.getJavaDate(d));
-					cellText = (String.valueOf(cal.get(Calendar.YEAR)))
-							.substring(2);
-					cellText = cal.get(Calendar.MONTH) + 1 + "/"
-							+ cal.get(Calendar.DAY_OF_MONTH) + "/" + cellText;
+					cellText = (String.valueOf(cal.get(Calendar.YEAR))).substring(2);
+					cellText = cal.get(Calendar.MONTH) + 1 + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cellText;
 
 					// System.out.println(cellText);
 
@@ -188,14 +182,12 @@ public class Xls_Reader {
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			return "row " + rowNum + " or column " + colNum
-					+ " does not exist  in xls";
+			return "row " + rowNum + " or column " + colNum + " does not exist  in xls";
 		}
 	}
 
 	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, String colName, int rowNum,
-			String data) {
+	public boolean setCellData(String sheetName, String colName, int rowNum, String data) {
 		try {
 			fis = new FileInputStream(path);
 			workbook = new XSSFWorkbook(fis);
@@ -248,8 +240,7 @@ public class Xls_Reader {
 	}
 
 	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, String colName, int rowNum,
-			String data, String url) {
+	public boolean setCellData(String sheetName, String colName, int rowNum, String data, String url) {
 		// System.out.println("setCellData setCellData******************");
 		try {
 			fis = new FileInputStream(path);
@@ -268,8 +259,7 @@ public class Xls_Reader {
 			row = sheet.getRow(0);
 			for (int i = 0; i < row.getLastCellNum(); i++) {
 				// System.out.println(row.getCell(i).getStringCellValue().trim());
-				if (row.getCell(i).getStringCellValue().trim()
-						.equalsIgnoreCase(colName))
+				if (row.getCell(i).getStringCellValue().trim().equalsIgnoreCase(colName))
 					colNum = i;
 			}
 
@@ -296,8 +286,7 @@ public class Xls_Reader {
 			hlink_style.setFont(hlink_font);
 			// hlink_style.setWrapText(true);
 
-			XSSFHyperlink link = createHelper
-					.createHyperlink(Hyperlink.LINK_FILE);
+			XSSFHyperlink link = createHelper.createHyperlink(Hyperlink.LINK_FILE);
 			link.setAddress(url);
 			cell.setHyperlink(link);
 			cell.setCellStyle(hlink_style);
@@ -460,8 +449,8 @@ public class Xls_Reader {
 
 	// String sheetName, String testCaseName,String keyword ,String URL,String
 	// message
-	public boolean addHyperLink(String sheetName, String screenShotColName,
-			String testCaseName, int index, String url, String message) {
+	public boolean addHyperLink(String sheetName, String screenShotColName, String testCaseName, int index, String url,
+			String message) {
 		// System.out.println("ADDING addHyperLink******************");
 
 		url = url.replace('\\', '/');
@@ -473,8 +462,7 @@ public class Xls_Reader {
 		for (int i = 2; i <= getRowCount(sheetName); i++) {
 			if (getCellData(sheetName, 0, i).equalsIgnoreCase(testCaseName)) {
 				// System.out.println("**caught "+(i+index));
-				setCellData(sheetName, screenShotColName, i + index, message,
-						url);
+				setCellData(sheetName, screenShotColName, i + index, message, url);
 				break;
 			}
 		}
@@ -491,19 +479,6 @@ public class Xls_Reader {
 		}
 		return -1;
 
-	}
-
-	// to run this on stand alone
-	public static void main(String arg[]) throws IOException {
-
-		// System.out.println(filename);
-		Xls_Reader datatable = null;
-
-		datatable = new Xls_Reader(
-				"H:\\Student_Selenium_Workspaces\\Framework_Weekend\\src\\Framework_XL_Files\\Controller.xlsx");
-		for (int col = 0; col < datatable.getColumnCount("TC5"); col++) {
-			System.out.println(datatable.getCellData("TC5", col, 1));
-		}
 	}
 
 }
