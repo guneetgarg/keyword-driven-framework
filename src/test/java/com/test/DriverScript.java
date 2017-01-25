@@ -29,13 +29,12 @@ public class DriverScript {
 	public void driverScript() throws Exception {
 		keywords = new KeywordWrapper();
 		method = keywords.getClass().getMethods();
-		capturescreenShot_method = keywords.getClass().getMethod("captureScreenshot", String.class, String.class);
-
 	}
 
 	@Test
 	public void execute() {
-		DS.getDSInstance();
+		DriverScript.getDSInstance();
+		keywords.openBrowser("chrome");
 	}
 
 }
