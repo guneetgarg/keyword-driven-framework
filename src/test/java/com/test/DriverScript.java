@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -39,10 +38,8 @@ public class DriverScript {
 
 	public void run(List<TestStepAggregation> TSA) {
 		for (int i = 0; i < TSA.size(); i++) {
-			System.out.println(TSA.get(i).getDescription());
 
 			for (int j = 0; j < method.length; j++) {
-				System.out.println("**********" + method[j].getName());
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
 					System.out.println(method[j].getName() + "   " + TSA.get(i).getKeyword());
 					try {
