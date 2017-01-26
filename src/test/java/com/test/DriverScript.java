@@ -6,6 +6,7 @@ import java.util.List;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.utilities.Dataprovider;
 import com.utilities.ExcelUtil;
 import com.utilities.KeywordWrapper;
 import com.utilities.TestCaseCl;
@@ -34,10 +35,10 @@ public class DriverScript {
 		method = keywords.getClass().getMethods();
 	}
 
-	@Test
-	public void execute() {
+	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
+	public void execute(String tcid, String desc, String runmode) {
 		DriverScript.getDSInstance();
-		checkTestCaseRunMode();
+	//	checkTestCaseRunMode();
 	}
 
 	public void checkTestCaseRunMode() {

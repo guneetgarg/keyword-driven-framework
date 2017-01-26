@@ -66,23 +66,14 @@ public class ExcelUtil {
 		try {
 			workbook.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		for (TestCaseCl a : listBooks) {
-			System.out.println("Description =" + a.getDescription());
-			System.out.println("tcid =" + a.getTcId());
-			System.out.println("Runmode =" + a.getRunmode());
-			System.out.println(isSheetExist(a.getTcId()));
-			System.out.println("***********");
-		}
 		return listBooks;
 
 	}
