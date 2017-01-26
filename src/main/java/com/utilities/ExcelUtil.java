@@ -19,7 +19,6 @@ public class ExcelUtil {
 	FileInputStream inputStream = null;
 	Sheet sheet;
 	List<TestCaseAggregation> listTCA = new ArrayList<TestCaseAggregation>();
-	TestCaseAggregation TCA = new TestCaseAggregation();
 
 	String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
 
@@ -51,6 +50,7 @@ public class ExcelUtil {
 	}
 
 	public List<TestCaseAggregation> getTestCaseSheetData() {
+
 		excelSetup();
 		sheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = sheet.iterator();
@@ -58,6 +58,7 @@ public class ExcelUtil {
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			TestCaseAggregation TCA = new TestCaseAggregation();
 
 			while (cellIterator.hasNext()) {
 				Cell nextCell = cellIterator.next();
