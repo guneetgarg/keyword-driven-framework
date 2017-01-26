@@ -6,12 +6,12 @@ import org.testng.annotations.DataProvider;
 
 public class Dataprovider {
 
-	ExcelUtil exU = new ExcelUtil();
+	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@DataProvider(name = "getTestRunnerModeData")
 	public Object[][] getTestRunnerModeData() {
 
-		List<TestCaseCl> lData = exU.ss();
+		List<TestCaseCl> lData = EU.ss();
 		Object[][] data = null;
 
 		data = new Object[lData.size()][3];

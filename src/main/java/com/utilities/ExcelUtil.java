@@ -16,27 +16,38 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 	static Workbook workbook;
+	FileInputStream inputStream = null;
+	Sheet sheet;
+	List<TestCaseCl> listBooks = new ArrayList<TestCaseCl>();
+	String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
 
-	public List<TestCaseCl> ss() {
-		String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
-		FileInputStream inputStream = null;
+	private static ExcelUtil EU;
+	private ExcelUtil() {
+
+	}
+
+	public static ExcelUtil getEUInstance() {
+		if (EU == null) {
+			EU = new ExcelUtil();
+		}
+		return EU;
+	}
+
+	public void excelSetup() {
 		try {
 			inputStream = new FileInputStream(new File(excelFilePath));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		List<TestCaseCl> listBooks = new ArrayList<TestCaseCl>();
-
-		try {
 			workbook = new XSSFWorkbook(inputStream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Sheet firstSheet = workbook.getSheetAt(0);
-		Iterator<Row> iterator = firstSheet.iterator();
+	}
+
+	public List<TestCaseCl> ss() {
+		excelSetup();
+		sheet = workbook.getSheetAt(0);
+		Iterator<Row> iterator = sheet.iterator();
 
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
@@ -63,23 +74,32 @@ public class ExcelUtil {
 			listBooks.add(aBook);
 		}
 
-		try {
-			workbook.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			inputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		closeWorkwook();
+		closeInputStream();
 
 		return listBooks;
 
 	}
 
+	public void closeWorkwook() {
+		try {
+			workbook.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void closeInputStream() {
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// whether sheets exists
-	public static boolean isSheetExist(String sheetName) {
+	public boolean isSheetExist(String sheetName) {
+
 		int index = workbook.getSheetIndex(sheetName);
 		if (index == -1) {
 			index = workbook.getSheetIndex(sheetName.toUpperCase());
