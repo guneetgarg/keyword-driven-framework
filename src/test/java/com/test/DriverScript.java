@@ -2,6 +2,7 @@ package com.test;
 
 import java.lang.reflect.Method;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,12 +26,13 @@ public class DriverScript {
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
 	public void execute(String tcid, String desc, String runmode) {
 
-		if (EU.isSheetExist(tcid)) {
-			System.out.println("yupiii");
-		} else {
-			System.out.println("Runmode is not yes");
-		}
+		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 
+		} else if (!EU.isSheetExist(tcid)) {
+			Assert.fail();
+		} else if (!runmode.equalsIgnoreCase("Y")) {
+			Assert.fail();
+		}
 	}
 
 }

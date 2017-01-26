@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" thread-count="3" parallel="tests">
+
+	<test name="Login">
+		<parameter name="browser" value="src/test/resources/TestSuite.xlsx" />
+		<classes>
+			<class name="com.test.DriverScript" />
+		</classes>
+	</test
+	>
+</suite>

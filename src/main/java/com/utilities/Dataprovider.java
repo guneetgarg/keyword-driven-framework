@@ -16,7 +16,6 @@ public class Dataprovider {
 
 		data = new Object[lData.size()][3];
 
-		System.out.println(lData.size());
 		int count = 0;
 		for (TestCaseAggregation a : lData) {
 			data[count][0] = a.getTcId();

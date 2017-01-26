@@ -50,33 +50,14 @@ public class ExcelUtil {
 	}
 
 	public List<TestCaseAggregation> getTestCaseSheetData() {
-
 		excelSetup();
 		sheet = workbook.getSheetAt(0);
-		Iterator<Row> iterator = sheet.iterator();
 
-		while (iterator.hasNext()) {
-			Row nextRow = iterator.next();
-			Iterator<Cell> cellIterator = nextRow.cellIterator();
+		for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
 			TestCaseAggregation TCA = new TestCaseAggregation();
-
-			while (cellIterator.hasNext()) {
-				Cell nextCell = cellIterator.next();
-				int columnIndex = nextCell.getColumnIndex();
-
-				switch (columnIndex) {
-				case 0:
-					TCA.setTcId(nextCell.getStringCellValue());
-					break;
-				case 1:
-					TCA.setDescription(nextCell.getStringCellValue());
-					break;
-				case 2:
-					TCA.setRunmode(nextCell.getStringCellValue());
-					break;
-				}
-
-			}
+			TCA.setTcId(sheet.getRow(i).getCell(0).toString());
+			TCA.setDescription(sheet.getRow(i).getCell(1).toString());
+			TCA.setRunmode(sheet.getRow(i).getCell(2).toString());
 			listTCA.add(TCA);
 		}
 
