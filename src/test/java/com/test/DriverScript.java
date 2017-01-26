@@ -27,12 +27,12 @@ public class DriverScript {
 	public void execute(String tcid, String desc, String runmode) {
 
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
-
+			EU.getTestStep(tcid);
 		} else if (!EU.isSheetExist(tcid)) {
 			Assert.fail();
 		} else if (!runmode.equalsIgnoreCase("Y")) {
 			Assert.fail();
 		}
-	}
-
+	}	
+	
 }

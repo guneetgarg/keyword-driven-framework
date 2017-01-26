@@ -97,4 +97,11 @@ public class ExcelUtil {
 		} else
 			return true;
 	}
+	
+	public void getTestStep(String sheetName){
+		excelSetup();
+		sheet = workbook.getSheet(sheetName);
+		
+	}
+	
 }
