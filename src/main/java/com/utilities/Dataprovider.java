@@ -11,14 +11,14 @@ public class Dataprovider {
 	@DataProvider(name = "getTestRunnerModeData")
 	public Object[][] getTestRunnerModeData() {
 
-		List<TestCaseCl> lData = EU.ss();
+		List<TestCaseAggregation> lData = EU.getTestCaseSheetData();
 		Object[][] data = null;
 
 		data = new Object[lData.size()][3];
 
 		System.out.println(lData.size());
 		int count = 0;
-		for (TestCaseCl a : lData) {
+		for (TestCaseAggregation a : lData) {
 			data[count][0] = a.getTcId();
 			data[count][1] = a.getDescription();
 			data[count][2] = a.getRunmode();

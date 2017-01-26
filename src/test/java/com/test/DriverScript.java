@@ -25,7 +25,7 @@ public class DriverScript {
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
 	public void execute(String tcid, String desc, String runmode) {
 
-		// System.out.println(EU.isSheetExist(tcid));
+		System.out.println(EU.isSheetExist(tcid));
 
 	}
 

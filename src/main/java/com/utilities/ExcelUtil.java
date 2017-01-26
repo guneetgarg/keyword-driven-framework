@@ -18,10 +18,16 @@ public class ExcelUtil {
 	static Workbook workbook;
 	FileInputStream inputStream = null;
 	Sheet sheet;
-	List<TestCaseCl> listBooks = new ArrayList<TestCaseCl>();
+	List<TestCaseAggregation> listTCA = new ArrayList<TestCaseAggregation>();
+	TestCaseAggregation TCA = new TestCaseAggregation();
+
 	String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
 
+	/*
+	 * Singleton
+	 */
 	private static ExcelUtil EU;
+
 	private ExcelUtil() {
 
 	}
@@ -44,7 +50,7 @@ public class ExcelUtil {
 		}
 	}
 
-	public List<TestCaseCl> ss() {
+	public List<TestCaseAggregation> getTestCaseSheetData() {
 		excelSetup();
 		sheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = sheet.iterator();
@@ -52,7 +58,6 @@ public class ExcelUtil {
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
-			TestCaseCl aBook = new TestCaseCl();
 
 			while (cellIterator.hasNext()) {
 				Cell nextCell = cellIterator.next();
@@ -60,24 +65,24 @@ public class ExcelUtil {
 
 				switch (columnIndex) {
 				case 0:
-					aBook.setTcId(nextCell.getStringCellValue());
+					TCA.setTcId(nextCell.getStringCellValue());
 					break;
 				case 1:
-					aBook.setDescription(nextCell.getStringCellValue());
+					TCA.setDescription(nextCell.getStringCellValue());
 					break;
 				case 2:
-					aBook.setRunmode(nextCell.getStringCellValue());
+					TCA.setRunmode(nextCell.getStringCellValue());
 					break;
 				}
 
 			}
-			listBooks.add(aBook);
+			listTCA.add(TCA);
 		}
 
 		closeWorkwook();
 		closeInputStream();
 
-		return listBooks;
+		return listTCA;
 
 	}
 
