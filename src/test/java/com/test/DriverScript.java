@@ -1,11 +1,14 @@
 package com.test;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.utilities.ExcelUtil;
 import com.utilities.KeywordWrapper;
+import com.utilities.TestCaseCl;
 
 public class DriverScript {
 
@@ -17,7 +20,7 @@ public class DriverScript {
 	private DriverScript() {
 
 	}
-	
+
 	public static DriverScript getDSInstance() {
 		if (DS == null) {
 			DS = new DriverScript();
@@ -34,12 +37,12 @@ public class DriverScript {
 	@Test
 	public void execute() {
 		DriverScript.getDSInstance();
-		keywords.openBrowser("chrome");
-		keywords.closeBroswer();
+		checkTestCaseRunMode();
 	}
-	
-	public void checkTestCaseRunMode(){
-		
+
+	public void checkTestCaseRunMode() {
+		ExcelUtil excelUtil = new ExcelUtil();
+		List<TestCaseCl> listRun =excelUtil.ss();
 	}
 
 }

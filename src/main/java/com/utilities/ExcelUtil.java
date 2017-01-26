@@ -1,8 +1,8 @@
 package com.utilities;
 
-import java.awt.print.Book;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,13 +16,25 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 	static Workbook workbook;
-	public static void main(String[] args) throws IOException {
+
+	public List<TestCaseCl> ss() {
 		String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
-		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+		FileInputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream(new File(excelFilePath));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		List<TestCaseCl> listBooks = new ArrayList<TestCaseCl>();
 
-		workbook = new XSSFWorkbook(inputStream);
+		try {
+			workbook = new XSSFWorkbook(inputStream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = firstSheet.iterator();
 
@@ -51,8 +63,18 @@ public class ExcelUtil {
 			listBooks.add(aBook);
 		}
 
-		workbook.close();
-		inputStream.close();
+		try {
+			workbook.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (TestCaseCl a : listBooks) {
 			System.out.println("Description =" + a.getDescription());
@@ -61,18 +83,20 @@ public class ExcelUtil {
 			System.out.println(isSheetExist(a.getTcId()));
 			System.out.println("***********");
 		}
+		return listBooks;
 
 	}
-	// find whether sheets exists
-		public static boolean isSheetExist(String sheetName) {
-			int index = workbook.getSheetIndex(sheetName);
-			if (index == -1) {
-				index = workbook.getSheetIndex(sheetName.toUpperCase());
-				if (index == -1)
-					return false;
-				else
-					return true;
-			} else
+
+	// whether sheets exists
+	public static boolean isSheetExist(String sheetName) {
+		int index = workbook.getSheetIndex(sheetName);
+		if (index == -1) {
+			index = workbook.getSheetIndex(sheetName.toUpperCase());
+			if (index == -1)
+				return false;
+			else
 				return true;
-		}
+		} else
+			return true;
+	}
 }
