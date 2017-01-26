@@ -5,11 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -53,7 +50,7 @@ public class ExcelUtil {
 		excelSetup();
 		sheet = workbook.getSheetAt(0);
 
-		for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
+		for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
 			TestCaseAggregation TCA = new TestCaseAggregation();
 			TCA.setTcId(sheet.getRow(i).getCell(0).toString());
 			TCA.setDescription(sheet.getRow(i).getCell(1).toString());
@@ -97,11 +94,23 @@ public class ExcelUtil {
 		} else
 			return true;
 	}
-	
-	public void getTestStep(String sheetName){
+
+	public List<TestStepAggregation> getTestStep(String sheetName) {
+		List<TestStepAggregation> listTSA = new ArrayList<TestStepAggregation>();
 		excelSetup();
 		sheet = workbook.getSheet(sheetName);
-		
+		for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
+			TestStepAggregation TSA = new TestStepAggregation();
+			TSA.setDescription(sheet.getRow(i).getCell(0).toString());
+			TSA.setKeyword(sheet.getRow(i).getCell(1).toString());
+			TSA.setObject(sheet.getRow(i).getCell(2).toString());
+			TSA.setData(sheet.getRow(i).getCell(3).toString());
+			listTSA.add(TSA);
+		}
+
+		closeWorkwook();
+		closeInputStream();
+		return listTSA;
 	}
-	
+
 }

@@ -215,6 +215,8 @@ public class DriverScript {
 				for (int i = 0; i < method.length; i++) {
 
 					if (method[i].getName().equals(currentKeyword)) {
+						capturescreenShot_method = keywords.getClass().getMethod("captureScreenshot", String.class, String.class);
+
 						System.out.println("Object tpo be Identified " + object);
 						keyword_execution_result = (String) method[i].invoke(keywords, object, data);
 						APP_LOGS.debug(keyword_execution_result);
