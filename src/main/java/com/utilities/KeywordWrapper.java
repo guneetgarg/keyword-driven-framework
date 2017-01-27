@@ -1,8 +1,14 @@
 package com.utilities;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -15,15 +21,14 @@ public class KeywordWrapper {
 	String locatorType;
 	String locatorValue;
 
-	public void waitSleep(){
+	public void waitSleep() {
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String openBrowser(String browser) {
 		log.info("Initializing browser" + browser);
 		String path = System.getProperty("user.dir") + "\\src\\main\\resources\\Drivers_executable\\";
@@ -137,6 +142,15 @@ public class KeywordWrapper {
 		log.info("clicking ->" + loc);
 		driver.findElement(getLocator(loc)).click();
 		return "Pass";
+	}
+
+	public void getscreenshot(String filename) {
+		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(scrFile, new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

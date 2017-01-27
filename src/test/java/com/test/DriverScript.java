@@ -18,7 +18,8 @@ import com.utilities.TestStepAggregation;
 public class DriverScript {
 	Logger log = LogManager.getLogger(DriverScript.class);
 
-	public static Method method[];
+	public Method method[];
+	public Method screenshot;
 	public KeywordWrapper keywords;
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
@@ -28,6 +29,7 @@ public class DriverScript {
 	public void driverScript(String excelFilePath) throws Exception {
 		keywords = new KeywordWrapper();
 		method = keywords.getClass().getMethods();
+		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		EU.setExcelUtil(excelFilePath);
 	}
 
