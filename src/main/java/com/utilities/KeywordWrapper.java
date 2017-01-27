@@ -42,6 +42,7 @@ public class KeywordWrapper {
 			driver = new InternetExplorerDriver();
 		} else {
 			log.info("Wrong Browser Name" + browser);
+			return "Wrong Browser Name" + browser;
 		}
 		driver.manage().window().maximize();
 		log.info("Browser Open Successfully");

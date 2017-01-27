@@ -2,6 +2,7 @@ package com.test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -21,6 +22,8 @@ public class DriverScript {
 	public Method method[];
 	public Method screenshot;
 	public KeywordWrapper keywords;
+	String resultStatus;
+	public ArrayList<String> resultSet;
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
@@ -46,28 +49,35 @@ public class DriverScript {
 
 	public void run(List<TestStepAggregation> TSA) {
 		for (int i = 0; i < TSA.size(); i++) {
-
-			for (int j = 0; j < method.length; j++) {
+			outerloop: for (int j = 0; j < method.length; j++) {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
 					System.out.println(method[j].getName() + "   " + TSA.get(i).getKeyword());
 					try {
 						if (method[j].getParameterCount() == 0)
-							method[j].invoke(keywords);
+							resultStatus = (String) method[j].invoke(keywords);
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getObject().length() > 0)
-							method[j].invoke(keywords, TSA.get(i).getObject());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject());
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
-							method[j].invoke(keywords, TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							method[j].invoke(keywords, TSA.get(i).getObject(), TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
+									TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
+						resultStatus = e.toString() + e.getCause();
 					} catch (InvocationTargetException e) {
-						e.printStackTrace();
+						resultStatus = e.toString() + e.getCause();
 					} catch (SecurityException e) {
-						e.printStackTrace();
+						resultStatus = e.toString() + e.getCause();
 					}
+					System.out.println("************************" + resultStatus);
+					// resultSet.add(resultStatus);
+					if (!(resultStatus.equalsIgnoreCase("pass"))) {
+						System.out.println("77777777777777777777");
+						break outerloop;
+					}
+					resultStatus = " ";
 					break;
 				}
 			}
