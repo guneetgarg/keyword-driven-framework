@@ -38,7 +38,6 @@ public class KeywordWrapper {
 			System.setProperty("webdriver.chrome.driver", path + "chromedriver.exe");
 			driver = new ChromeDriver();
 		} else if (browser.equalsIgnoreCase("IE")) {
-			System.setProperty("webdriver.ie.driver", path + "IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 		} else {
 			log.info("Wrong Browser Name" + browser);

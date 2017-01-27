@@ -60,8 +60,7 @@ public class DriverScript {
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
-									TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
 						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
@@ -74,6 +73,15 @@ public class DriverScript {
 					System.out.println("************************" + resultStatus);
 					// resultSet.add(resultStatus);
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
+						try {
+							screenshot.invoke(keywords, "abc.png");
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
 						System.out.println("77777777777777777777");
 						break outerloop;
 					}
