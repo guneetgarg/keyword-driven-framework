@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestSuite" thread-count="3" parallel="tests">
+<suite name="TestSuite">
 
 	<test name="Login">
 		<parameter name="excelFilePath" value="src/test/resources/TestSuite.xlsx" />
