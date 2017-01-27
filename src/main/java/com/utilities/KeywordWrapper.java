@@ -15,6 +15,15 @@ public class KeywordWrapper {
 	String locatorType;
 	String locatorValue;
 
+	public void waitSleep(){
+		try {
+			Thread.sleep(4500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String openBrowser(String browser) {
 		log.info("Initializing browser" + browser);
 		String path = System.getProperty("user.dir") + "\\src\\main\\resources\\Drivers_executable\\";
@@ -44,12 +53,14 @@ public class KeywordWrapper {
 	}
 
 	public String navigate(String url) {
+		waitSleep();
 		log.info("Navigating to URL ->" + url);
 		driver.get(url);
 		return "Pass";
 	}
 
 	public String enterText(String loc, String str) {
+		waitSleep();
 		log.info("Entering the text ->" + str);
 		driver.findElement(getLocator(loc)).sendKeys(str);
 		return "Pass";
@@ -121,6 +132,8 @@ public class KeywordWrapper {
 	}
 
 	public String click(String loc) {
+		waitSleep();
+
 		log.info("clicking ->" + loc);
 		driver.findElement(getLocator(loc)).click();
 		return "Pass";

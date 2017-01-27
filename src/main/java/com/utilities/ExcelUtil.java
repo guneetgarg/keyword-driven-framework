@@ -15,7 +15,6 @@ public class ExcelUtil {
 	static Workbook workbook;
 	FileInputStream inputStream = null;
 	Sheet sheet;
-	List<TestCaseAggregation> listTCA = new ArrayList<TestCaseAggregation>();
 
 	String excelFilePath = System.getProperty("user.dir") + "\\src\\test\\resources\\TestSuite.xlsx";
 
@@ -49,6 +48,7 @@ public class ExcelUtil {
 	public List<TestCaseAggregation> getTestCaseSheetData() {
 		excelSetup();
 		sheet = workbook.getSheetAt(0);
+		List<TestCaseAggregation> listTCA = new ArrayList<TestCaseAggregation>();
 
 		for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
 			TestCaseAggregation TCA = new TestCaseAggregation();

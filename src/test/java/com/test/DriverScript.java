@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.utilities.Dataprovider;
@@ -20,7 +19,7 @@ public class DriverScript {
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
-	@BeforeSuite
+	@BeforeClass
 	public void driverScript() throws Exception {
 		keywords = new KeywordWrapper();
 		method = keywords.getClass().getMethods();

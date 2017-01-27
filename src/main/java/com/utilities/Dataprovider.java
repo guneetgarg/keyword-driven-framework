@@ -12,9 +12,7 @@ public class Dataprovider {
 	public Object[][] getTestRunnerModeData() {
 
 		List<TestCaseAggregation> lData = EU.getTestCaseSheetData();
-		Object[][] data = null;
-
-		data = new Object[lData.size()][3];
+		Object[][] data = new Object[lData.size()][3];
 
 		int count = 0;
 		for (TestCaseAggregation a : lData) {
