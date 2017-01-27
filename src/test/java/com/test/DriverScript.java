@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,6 +16,7 @@ import com.utilities.KeywordWrapper;
 import com.utilities.TestStepAggregation;
 
 public class DriverScript {
+	Logger log = LogManager.getLogger(DriverScript.class);
 
 	public static Method method[];
 	public KeywordWrapper keywords;
@@ -33,9 +36,9 @@ public class DriverScript {
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 			run(EU.getTestStep(tcid));
 		} else if (!EU.isSheetExist(tcid)) {
-			// Assert.fail();
+			log.info("Sheet Do Not Exist");
 		} else if (!runmode.equalsIgnoreCase("Y")) {
-			// Assert.fail();
+			log.info("RunMode is not Y");
 		}
 	}
 
