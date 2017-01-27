@@ -49,9 +49,9 @@ public class KeywordWrapper {
 		return "Pass";
 	}
 
-	public String enterText(String str, String loc) {
+	public String enterText(String loc, String str) {
 		log.info("Entering the text ->" + str);
-		driver.findElement(getLocator(loc));
+		driver.findElement(getLocator(loc)).sendKeys(str);
 		return "Pass";
 	}
 
@@ -62,19 +62,19 @@ public class KeywordWrapper {
 	public By getLocator(String fieldLocator) {
 		log.info("Field locator recieved::" + fieldLocator);
 
-		String splitArray[] = fieldLocator.split("||");
-		
+		String splitArray[] = fieldLocator.split("~~");
+
 		locatorType = splitArray[0];
 		locatorValue = splitArray[1];
-		
+
 		log.info("locator Type : " + locatorType);
 		log.info("locator Searching : " + locatorValue);
 		LOCATOR_TYPE loc_temp = null;
 		try {
 			loc_temp = LOCATOR_TYPE.valueOf(locatorType);
 		} catch (Exception e) {
-			log.info("Wrong Locator type enter" + locatorType );
-			e.printStackTrace();			
+			log.info("Wrong Locator type enter" + locatorType);
+			e.printStackTrace();
 		}
 		switch (loc_temp) {
 		case name: {
@@ -118,6 +118,12 @@ public class KeywordWrapper {
 		}
 		}
 		return by;
+	}
+
+	public String click(String loc) {
+		log.info("clicking ->" + loc);
+		driver.findElement(getLocator(loc)).click();
+		return "Pass";
 	}
 
 }

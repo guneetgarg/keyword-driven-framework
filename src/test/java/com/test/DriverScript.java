@@ -43,7 +43,9 @@ public class DriverScript {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
 					System.out.println(method[j].getName() + "   " + TSA.get(i).getKeyword());
 					try {
-						if (method[j].getParameterCount() == 1 && TSA.get(i).getObject().length() > 0)
+						if (method[j].getParameterCount() == 0)
+							method[j].invoke(keywords);
+						else if (method[j].getParameterCount() == 1 && TSA.get(i).getObject().length() > 0)
 							method[j].invoke(keywords, TSA.get(i).getObject());
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							method[j].invoke(keywords, TSA.get(i).getData());
@@ -61,7 +63,6 @@ public class DriverScript {
 					break;
 				}
 			}
-
 		}
 	}
 }
