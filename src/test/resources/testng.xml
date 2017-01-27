@@ -2,10 +2,16 @@
 <suite name="TestSuite" thread-count="3" parallel="tests">
 
 	<test name="Login">
-		<parameter name="browser" value="src/test/resources/TestSuite.xlsx" />
+		<parameter name="excelFilePath" value="src/test/resources/TestSuite.xlsx" />
 		<classes>
 			<class name="com.test.DriverScript" />
 		</classes>
-	</test
-	>
+	</test>
+	
+<!-- 	<test name="Login1"> -->
+<!-- 		<parameter name="excelFilePath" value="src/test/resources/TestSuite2.xlsx" /> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.test.DriverScript" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 </suite>
