@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.utilities.Dataprovider;
@@ -19,10 +20,12 @@ public class DriverScript {
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
+	@Parameters("excelFilePath")
 	@BeforeClass
-	public void driverScript() throws Exception {
+	public void driverScript(String excelFilePath) throws Exception {
 		keywords = new KeywordWrapper();
 		method = keywords.getClass().getMethods();
+		EU.setExcelUtil(excelFilePath);
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
