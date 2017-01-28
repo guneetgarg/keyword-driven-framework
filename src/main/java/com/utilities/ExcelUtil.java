@@ -2,7 +2,6 @@ package com.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,6 @@ public class ExcelUtil {
 		try {
 			inputStream = new FileInputStream(new File(excelFilePath));
 			workbook = new XSSFWorkbook(inputStream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
