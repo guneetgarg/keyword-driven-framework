@@ -11,7 +11,7 @@ public class Constant {
 	}
 
 	public void setScreenShortDir(String screenShortDir) {
-		this.screenShortDir = System.getProperty("user.dir") + "\\Report\\ScreenShot_" + screenShortDir;
+		Constant.screenShortDir = System.getProperty("user.dir") + "\\Report\\ScreenShot_" + screenShortDir;
 	}
 
 	//////////////////////////////////////////////////////
@@ -20,17 +20,15 @@ public class Constant {
 	}
 
 	public void setReportDir(String reportDir) {
-		this.reportDir = System.getProperty("user.dir") + "\\Report\\Report_" + reportDir;
+		Constant.reportDir = System.getProperty("user.dir") + "\\Report\\Report_" + reportDir;
 	}
 
 	///////////////////////////////////////////
 	public void setExcelUtil(String excelFilePath) {
-		this.excelFilePath = System.getProperty("user.dir") + "\\" + excelFilePath;
-		System.out.println("*******************"+excelFilePath);
+		Constant.excelFilePath = System.getProperty("user.dir") + "\\" + excelFilePath;
 	}
 
 	public String getExcelUtil() {
-		System.out.println("--------------------------"+excelFilePath);
 		return excelFilePath;
 	}
 
