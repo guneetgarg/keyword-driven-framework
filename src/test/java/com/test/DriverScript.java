@@ -12,45 +12,36 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.utilities.Constant;
 import com.utilities.Dataprovider;
 import com.utilities.ExcelUtil;
 import com.utilities.KeywordWrapper;
 import com.utilities.TestStepAggregation;
 
-public class DriverScript extends Constant {
+public class DriverScript {
 	Logger log = LogManager.getLogger(DriverScript.class);
 
 	public Method method[];
 	public Method screenshot;
-	public KeywordWrapper keywords = new KeywordWrapper();
-	String rr;
+	public KeywordWrapper keywords;
 	String resultStatus;
 	public ArrayList<String> resultSet;
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@BeforeSuite
-	public void driverSc() {
-		rr = keywords.randomNumber();
-		setReportDir(rr);
-		setScreenShortDir(rr);
-
-		keywords.createDirectory(getScreenShortDir());
-
-		keywords.createDirectory(getReportDir());
-
+	public void driverSc()  {
+	//	System.out.println("777777777777777777777777777777777777777777777777777777777777777777777777777777777");
 	}
-
+	
+	
 	@Parameters("excelFilePath")
 	@BeforeClass
 	public void driverScript(String excelFilePath) throws Exception {
+		keywords = new KeywordWrapper();
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
-		setExcelUtil(excelFilePath);
-		System.out.println(getExcelUtil());
-		System.out.println(getReportDir());
-		keywords.moveFileToDirectory(getExcelUtil(), getReportDir());
+		EU.setExcelUtil(excelFilePath);
+	//	keywords.moveFileToDirectory(EU.getExcelUtil(),"");
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
@@ -77,8 +68,7 @@ public class DriverScript extends Constant {
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
-									TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
 						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
