@@ -12,30 +12,36 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.utilities.Constant;
 import com.utilities.Dataprovider;
 import com.utilities.ExcelUtil;
 import com.utilities.KeywordWrapper;
 import com.utilities.TestStepAggregation;
 
-public class DriverScript {
+public class DriverScript extends Constant {
 	Logger log = LogManager.getLogger(DriverScript.class);
 
 	public Method method[];
 	public Method screenshot;
-	public KeywordWrapper keywords;
+	public KeywordWrapper keywords = new KeywordWrapper();
 	String resultStatus;
 	public ArrayList<String> resultSet;
-
+	String rr;
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@BeforeSuite
 	public void driverSc() {
+		rr=keywords.randomNumber();
+		setScreenShortDir(rr);
+		setReportDir(rr);
+		keywords.createDirectory(getScreenShortDir());
+		keywords.createDirectory(getReportDir());
 	}
 
 	@Parameters("excelFilePath")
 	@BeforeClass
 	public void driverScript(String excelFilePath) throws Exception {
-		keywords = new KeywordWrapper();
+
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		EU.setExcelUtil(excelFilePath);
