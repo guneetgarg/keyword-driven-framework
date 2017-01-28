@@ -31,7 +31,7 @@ public class DriverScript extends Constant {
 
 	@BeforeSuite
 	public void driverSc() {
-		rr=keywords.randomNumber();
+		rr = keywords.randomNumber();
 		setScreenShortDir(rr);
 		setReportDir(rr);
 		keywords.createDirectory(getScreenShortDir());
@@ -80,8 +80,6 @@ public class DriverScript extends Constant {
 						resultStatus = e.toString() + e.getCause();
 					} catch (InvocationTargetException e) {
 						resultStatus = e.toString() + e.getCause();
-					} catch (SecurityException e) {
-						resultStatus = e.toString() + e.getCause();
 					}
 					// resultSet.add(resultStatus);
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
@@ -93,9 +91,8 @@ public class DriverScript extends Constant {
 							resultStatus = e.toString() + e.getCause();
 						} catch (InvocationTargetException e) {
 							resultStatus = e.toString() + e.getCause();
-						} catch (SecurityException e) {
-							resultStatus = e.toString() + e.getCause();
 						}
+
 						System.out.println("77777777777777777777");
 						break outerloop;
 					}
