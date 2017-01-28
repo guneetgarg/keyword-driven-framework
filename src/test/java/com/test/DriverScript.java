@@ -79,13 +79,7 @@ public class DriverScript extends Constant {
 						else if (method[j].getParameterCount() == 2)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
 									TSA.get(i).getData());
-					} catch (IllegalAccessException e) {
-						resultStatus = e.toString() + e.getCause();
-					} catch (IllegalArgumentException e) {
-						resultStatus = e.toString() + e.getCause();
-					} catch (InvocationTargetException e) {
-						resultStatus = e.toString() + e.getCause();
-					} catch (SecurityException e) {
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 						resultStatus = e.toString() + e.getCause();
 					}
 					resultSet.add(resultStatus);
