@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -27,6 +28,12 @@ public class DriverScript {
 
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
+	@BeforeSuite
+	public void driverSc()  {
+	//	System.out.println("777777777777777777777777777777777777777777777777777777777777777777777777777777777");
+	}
+	
+	
 	@Parameters("excelFilePath")
 	@BeforeClass
 	public void driverScript(String excelFilePath) throws Exception {
@@ -34,6 +41,7 @@ public class DriverScript {
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		EU.setExcelUtil(excelFilePath);
+	//	keywords.moveFileToDirectory(EU.getExcelUtil(),"");
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)

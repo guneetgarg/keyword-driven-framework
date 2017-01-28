@@ -2,6 +2,9 @@ package com.utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
@@ -15,6 +18,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class KeywordWrapper {
 	Logger log = LogManager.getLogger(KeywordWrapper.class);
+	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	static WebDriver driver;
 	By by = null;
@@ -138,7 +142,6 @@ public class KeywordWrapper {
 
 	public String click(String loc) {
 		waitSleep();
-
 		log.info("clicking ->" + loc);
 		driver.findElement(getLocator(loc)).click();
 		return "Pass";
@@ -151,6 +154,32 @@ public class KeywordWrapper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void moveFileToDirectory(String srcFile, String destDir) {
+		try {
+			FileUtils.copyFileToDirectory(new File(srcFile), new File(destDir));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void createDirectory(String str) {
+		System.out.println(str);
+		File file = new File(str);
+		if (!file.exists()) {
+			if (file.mkdir()) {
+				log.info("Directory is created!");
+			} else {
+				log.info("Failed to create directory!");
+			}
+		}
+	}
+
+	public String randomNumber() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH_mm_ss");
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 
 }

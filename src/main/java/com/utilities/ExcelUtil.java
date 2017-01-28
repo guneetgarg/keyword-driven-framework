@@ -11,12 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelUtil {
-	String excelFilePath;
-
-	public void setExcelUtil(String excelFilePath) {
-		this.excelFilePath = System.getProperty("user.dir") + "\\" + excelFilePath;
-	}
+public class ExcelUtil extends Constant {
 
 	static Workbook workbook;
 	FileInputStream inputStream = null;
@@ -40,7 +35,7 @@ public class ExcelUtil {
 
 	public void excelSetup() {
 		try {
-			inputStream = new FileInputStream(new File(excelFilePath));
+			inputStream = new FileInputStream(new File(getExcelUtil()));
 			workbook = new XSSFWorkbook(inputStream);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
