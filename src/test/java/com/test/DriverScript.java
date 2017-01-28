@@ -64,7 +64,7 @@ public class DriverScript extends Constant {
 		}
 	}
 
-	public void run(List<TestStepAggregation> TSA) {
+	public ArrayList<String> run(List<TestStepAggregation> TSA) {
 		for (int i = 0; i < TSA.size(); i++) {
 			outerloop: for (int j = 0; j < method.length; j++) {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
@@ -88,16 +88,11 @@ public class DriverScript extends Constant {
 					} catch (SecurityException e) {
 						resultStatus = e.toString() + e.getCause();
 					}
-					System.out.println("************************" + resultStatus);
-					// resultSet.add(resultStatus);
+					resultSet.add(resultStatus);
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
 						try {
 							screenshot.invoke(keywords, "abc.png");
-						} catch (IllegalAccessException e) {
-							e.printStackTrace();
-						} catch (IllegalArgumentException e) {
-							e.printStackTrace();
-						} catch (InvocationTargetException e) {
+						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 							e.printStackTrace();
 						}
 						System.out.println("77777777777777777777");
@@ -109,5 +104,6 @@ public class DriverScript extends Constant {
 			}
 
 		}
+		return resultSet;
 	}
 }
