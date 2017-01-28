@@ -29,11 +29,10 @@ public class DriverScript {
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@BeforeSuite
-	public void driverSc()  {
-	//	System.out.println("777777777777777777777777777777777777777777777777777777777777777777777777777777777");
+	public void driverSc() {
+		// System.out.println("777777777777777777777777777777777777777777777777777777777777777777777777777777777");
 	}
-	
-	
+
 	@Parameters("excelFilePath")
 	@BeforeClass
 	public void driverScript(String excelFilePath) throws Exception {
@@ -41,7 +40,7 @@ public class DriverScript {
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		EU.setExcelUtil(excelFilePath);
-	//	keywords.moveFileToDirectory(EU.getExcelUtil(),"");
+		// keywords.moveFileToDirectory(EU.getExcelUtil(),"");
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
@@ -55,7 +54,7 @@ public class DriverScript {
 		}
 	}
 
-	public void run(List<TestStepAggregation> TSA) {
+	public ArrayList<String> run(List<TestStepAggregation> TSA) {
 		for (int i = 0; i < TSA.size(); i++) {
 			outerloop: for (int j = 0; j < method.length; j++) {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
@@ -68,7 +67,8 @@ public class DriverScript {
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
+									TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
 						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
@@ -78,17 +78,18 @@ public class DriverScript {
 					} catch (SecurityException e) {
 						resultStatus = e.toString() + e.getCause();
 					}
-					System.out.println("************************" + resultStatus);
-					// resultSet.add(resultStatus);
+					resultSet.add(resultStatus);
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
 						try {
 							screenshot.invoke(keywords, "abc.png");
 						} catch (IllegalAccessException e) {
-							e.printStackTrace();
+							resultStatus = e.toString() + e.getCause();
 						} catch (IllegalArgumentException e) {
-							e.printStackTrace();
+							resultStatus = e.toString() + e.getCause();
 						} catch (InvocationTargetException e) {
-							e.printStackTrace();
+							resultStatus = e.toString() + e.getCause();
+						} catch (SecurityException e) {
+							resultStatus = e.toString() + e.getCause();
 						}
 						System.out.println("77777777777777777777");
 						break outerloop;
@@ -99,5 +100,6 @@ public class DriverScript {
 			}
 
 		}
+		return resultSet;
 	}
 }
