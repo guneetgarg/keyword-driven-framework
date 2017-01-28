@@ -26,14 +26,14 @@ public class DriverScript extends Constant {
 	public KeywordWrapper keywords = new KeywordWrapper();
 	String resultStatus;
 	public ArrayList<String> resultSet;
-	String rr;
+	String randString;
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@BeforeSuite
 	public void driverSc() {
-		rr = keywords.randomNumber();
-		setScreenShortDir(rr);
-		setReportDir(rr);
+		randString = keywords.randomNumber();
+		setScreenShortDir(randString);
+		setReportDir(randString);
 		keywords.createDirectory(getScreenShortDir());
 		keywords.createDirectory(getReportDir());
 	}
@@ -41,7 +41,6 @@ public class DriverScript extends Constant {
 	@Parameters("excelFilePath")
 	@BeforeClass
 	public void driverScript(String excelFilePath) throws Exception {
-
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		setExcelUtil(excelFilePath);
