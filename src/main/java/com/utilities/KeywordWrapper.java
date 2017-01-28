@@ -98,45 +98,45 @@ public class KeywordWrapper {
 		}
 
 		switch (loc_temp) {
-		case name: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.name(locatorValue);
-			break;
-		}
+			case name: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.name(locatorValue);
+				break;
+			}
 
-		case linktext: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.linkText(locatorValue);
-			break;
-		}
+			case linktext: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.linkText(locatorValue);
+				break;
+			}
+	
+			case xpath: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.xpath(locatorValue);
+				break;
+			}
+	
+			case partialLinkText: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.partialLinkText(locatorValue);
+				break;
+			}
+	
+			case cssSelector: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.cssSelector(locatorValue);
+				break;
+			}
+	
+			case id: {
+				log.info("locator type of the field =" + locatorType);
+				by = By.id(locatorValue);
+				break;
+			}
 
-		case xpath: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.xpath(locatorValue);
-			break;
-		}
-
-		case partialLinkText: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.partialLinkText(locatorValue);
-			break;
-		}
-
-		case cssSelector: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.cssSelector(locatorValue);
-			break;
-		}
-
-		case id: {
-			log.info("locator type of the field =" + locatorType);
-			by = By.id(locatorValue);
-			break;
-		}
-
-		default: {
-			log.info("You just can not move from here");
-		}
+			default: {
+				log.info("You just can not move from here");
+			}
 		}
 		return by;
 	}
