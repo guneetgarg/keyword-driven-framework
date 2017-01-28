@@ -25,12 +25,11 @@ public class DriverScript extends Constant {
 	public Method screenshot;
 	public KeywordWrapper keywords = new KeywordWrapper();
 	String resultStatus;
-	public ArrayList<String> resultSet;
 	String randString;
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
 	@BeforeSuite
-	public void driverSc() {
+	public void initialSetup() {
 		randString = keywords.randomNumber();
 		setScreenShortDir(randString);
 		setReportDir(randString);
