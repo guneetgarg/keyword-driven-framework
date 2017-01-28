@@ -44,8 +44,8 @@ public class DriverScript extends Constant {
 
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
-		EU.setExcelUtil(excelFilePath);
-		// keywords.moveFileToDirectory(EU.getExcelUtil(),"");
+		setExcelUtil(excelFilePath);
+		keywords.moveFileToDirectory(getExcelUtil(),getReportDir());
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
