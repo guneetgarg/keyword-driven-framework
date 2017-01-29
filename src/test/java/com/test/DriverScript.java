@@ -2,6 +2,7 @@ package com.test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -23,9 +24,9 @@ public class DriverScript extends Constant {
 	public Method method[];
 	public Method screenshot;
 	public KeywordWrapper keywords = new KeywordWrapper();
-	String resultStatus;
-	String randString;
+	String resultStatus, randString;
 	ExcelUtil EU = ExcelUtil.getEUInstance();
+	ArrayList<String> resultSet = new ArrayList<String>();
 
 	@BeforeSuite
 	public void initialSetup() {
@@ -42,7 +43,7 @@ public class DriverScript extends Constant {
 		method = keywords.getClass().getMethods();
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		setExcelUtil(excelFilePath);
-		keywords.moveFileToDirectory(getExcelUtil(),getReportDir());
+		keywords.moveFileToDirectory(getExcelUtil(), getReportDir());
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
@@ -56,11 +57,13 @@ public class DriverScript extends Constant {
 		}
 	}
 
-	public void run(List<TestStepAggregation> TSA) {
+	public ArrayList<String> run(List<TestStepAggregation> TSA) {
 		for (int i = 0; i < TSA.size(); i++) {
+			resultStatus = " ";
 			outerloop: for (int j = 0; j < method.length; j++) {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
-//					System.out.println(method[j].getName() + "   " + TSA.get(i).getKeyword());
+					// System.out.println(method[j].getName() + " " +
+					// TSA.get(i).getKeyword());
 					try {
 						if (method[j].getParameterCount() == 0)
 							resultStatus = (String) method[j].invoke(keywords);
@@ -69,7 +72,8 @@ public class DriverScript extends Constant {
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
+									TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
 						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
@@ -87,15 +91,15 @@ public class DriverScript extends Constant {
 						} catch (InvocationTargetException e) {
 							resultStatus = e.toString() + e.getCause();
 						}
-
+						resultSet.add(resultStatus);
 						break outerloop;
 					}
-					resultStatus = " ";
+					resultSet.add(resultStatus);
 					break;
 				}
 			}
 
 		}
-		// return resultSet;
+		return resultSet;
 	}
 }
