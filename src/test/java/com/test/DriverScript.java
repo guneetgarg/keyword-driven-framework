@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -62,6 +63,10 @@ public class DriverScript extends Constant {
 		}
 	}
 
+	@AfterClass
+	public void checkBrowser(){
+		keywords.closeBroswer();
+	}
 	public String checkTCStatus(ArrayList<String> status) {
 		for (String ss : status) {
 			if (!(ss.equalsIgnoreCase("pass"))) {
