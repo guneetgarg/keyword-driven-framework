@@ -8,12 +8,15 @@ public class Constant {
 	String baseDir = System.getProperty("user.dir");
 	static private String excelName;
 
-	public static String getExcelName() {
+	public String getExcelName() {
 		return excelName;
 	}
 
-	public static void setExcelName(String excelName) {
-		Constant.excelName = excelName;
+	public void setExcelName(String excelName) {
+		String aa[]=excelName.split("/");
+		System.out.println(aa.length);
+		System.out.println(aa[aa.length-1]);
+		Constant.excelName = aa[aa.length-1];
 	}
 
 	////////////////////////////////////////////////////////

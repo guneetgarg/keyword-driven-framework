@@ -53,7 +53,7 @@ public class DriverScript extends Constant {
 		resultSet = new ArrayList<String>();
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 			ArrayList<String> status = run(EU.getTestStep(tcid));
-			EU.writeExcel(getReportDir() + "TestSuite.xlsx", tcid, status);
+			EU.writeExcel(getReportDir() + getExcelName(), tcid, status);
 			Assert.assertEquals("true", checkTCStatus(status));
 		} else if (!EU.isSheetExist(tcid)) {
 			log.info("Sheet Do Not Exist");
@@ -97,11 +97,11 @@ public class DriverScript extends Constant {
 						try {
 							screenshot.invoke(keywords, "abc.png");
 						} catch (IllegalAccessException e) {
-							// resultStatus = e.toString() + e.getCause();
+							resultStatus += e.toString() + e.getCause();
 						} catch (IllegalArgumentException e) {
-							// resultStatus = e.toString() + e.getCause();
+							resultStatus += e.toString() + e.getCause();
 						} catch (InvocationTargetException e) {
-							// resultStatus = e.toString() + e.getCause();
+							resultStatus += e.toString() + e.getCause();
 						}
 						resultSet.add(resultStatus);
 						break outerloop;
