@@ -26,7 +26,7 @@ public class DriverScript extends Constant {
 	public KeywordWrapper keywords = new KeywordWrapper();
 	String resultStatus, randString;
 	ExcelUtil EU = ExcelUtil.getEUInstance();
-	ArrayList<String> resultSet = new ArrayList<String>();
+	ArrayList<String> resultSet;
 
 	@BeforeSuite
 	public void initialSetup() {
@@ -48,8 +48,10 @@ public class DriverScript extends Constant {
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
 	public void execute(String tcid, String desc, String runmode) {
+		resultSet = new ArrayList<String>();
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 			run(EU.getTestStep(tcid));
+			System.out.println(resultSet.size() + "********************");
 		} else if (!EU.isSheetExist(tcid)) {
 			log.info("Sheet Do Not Exist");
 		} else if (!runmode.equalsIgnoreCase("Y")) {
