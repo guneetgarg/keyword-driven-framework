@@ -53,9 +53,8 @@ public class DriverScript extends Constant {
 		resultSet = new ArrayList<String>();
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 			ArrayList<String> status = run(EU.getTestStep(tcid));
+			EU.writeExcel(getReportDir() + "TestSuite.xlsx", tcid, status);
 			Assert.assertEquals("true", checkTCStatus(status));
-
-			System.out.println(resultSet.size() + "********************");
 		} else if (!EU.isSheetExist(tcid)) {
 			log.info("Sheet Do Not Exist");
 		} else if (!runmode.equalsIgnoreCase("Y")) {
@@ -64,7 +63,6 @@ public class DriverScript extends Constant {
 	}
 
 	public String checkTCStatus(ArrayList<String> status) {
-
 		for (String ss : status) {
 			if (!(ss.equalsIgnoreCase("pass"))) {
 				return ss;
