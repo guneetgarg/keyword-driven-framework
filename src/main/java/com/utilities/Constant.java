@@ -13,11 +13,10 @@ public class Constant {
 	}
 
 	public void setExcelName(String excelName) {
-		String aa[]=excelName.split("/");
-		Constant.excelName = aa[aa.length-1];
+		String aa[] = excelName.split("/");
+		Constant.excelName = aa[aa.length - 1];
 	}
 
-	////////////////////////////////////////////////////////
 	public String getScreenShortDir() {
 		return screenShortDir;
 	}
@@ -26,7 +25,6 @@ public class Constant {
 		Constant.screenShortDir = baseDir + "\\Report\\ScreenShot_" + screenShortDir + "\\";
 	}
 
-	//////////////////////////////////////////////////////
 	public String getReportDir() {
 		return reportDir;
 	}
@@ -35,7 +33,6 @@ public class Constant {
 		Constant.reportDir = baseDir + "\\Report\\Report_" + reportDir + "\\";
 	}
 
-	///////////////////////////////////////////
 	public void setExcelUtil(String excelFilePath) {
 		setExcelName(excelFilePath);
 		Constant.excelFilePath = baseDir + "\\" + excelFilePath;
