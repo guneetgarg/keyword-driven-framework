@@ -58,9 +58,13 @@ public class KeywordWrapper {
 
 	public String closeBroswer() {
 		log.info("Closing browser");
-		if (driver != null) {
-			driver.quit();
-			driver = null;
+		try {
+			if (driver != null) {
+				driver.quit();
+				driver = null;
+			}
+		} catch (Exception e) {
+			return "Fail -- unable to close broswer -- " + e;
 		}
 		return "Pass";
 	}
