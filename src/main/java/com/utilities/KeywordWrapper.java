@@ -64,14 +64,22 @@ public class KeywordWrapper {
 	public String navigate(String url) {
 		waitSleep();
 		log.info("Navigating to URL ->" + url);
-		driver.get(url);
+		try {
+			driver.get(url);
+		} catch (Exception e) {
+			return "FAIL" + " -- Not able to navigate --" + e;
+		}
 		return "Pass";
 	}
 
 	public String enterText(String loc, String str) {
 		waitSleep();
 		log.info("Entering the text ->" + str);
-		driver.findElement(getLocator(loc)).sendKeys(str);
+		try {
+			driver.findElement(getLocator(loc)).sendKeys(str);
+		} catch (Exception e) {
+			return "FAIL" + " -- Not able to enter text --" + e;
+		}
 		return "Pass";
 	}
 
@@ -98,45 +106,45 @@ public class KeywordWrapper {
 		}
 
 		switch (loc_temp) {
-			case name: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.name(locatorValue);
-				break;
-			}
+		case name: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.name(locatorValue);
+			break;
+		}
 
-			case linktext: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.linkText(locatorValue);
-				break;
-			}
-	
-			case xpath: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.xpath(locatorValue);
-				break;
-			}
-	
-			case partialLinkText: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.partialLinkText(locatorValue);
-				break;
-			}
-	
-			case cssSelector: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.cssSelector(locatorValue);
-				break;
-			}
-	
-			case id: {
-				log.info("locator type of the field =" + locatorType);
-				by = By.id(locatorValue);
-				break;
-			}
+		case linktext: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.linkText(locatorValue);
+			break;
+		}
 
-			default: {
-				log.info("You just can not move from here");
-			}
+		case xpath: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.xpath(locatorValue);
+			break;
+		}
+
+		case partialLinkText: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.partialLinkText(locatorValue);
+			break;
+		}
+
+		case cssSelector: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.cssSelector(locatorValue);
+			break;
+		}
+
+		case id: {
+			log.info("locator type of the field =" + locatorType);
+			by = By.id(locatorValue);
+			break;
+		}
+
+		default: {
+			log.info("You just can not move from here");
+		}
 		}
 		return by;
 	}
@@ -144,7 +152,11 @@ public class KeywordWrapper {
 	public String click(String loc) {
 		waitSleep();
 		log.info("clicking ->" + loc);
-		driver.findElement(getLocator(loc)).click();
+		try {
+			driver.findElement(getLocator(loc)).click();
+		} catch (Exception e) {
+			return "Fail" + " -- Not able to click on link -- " + e;
+		}
 		return "Pass";
 	}
 

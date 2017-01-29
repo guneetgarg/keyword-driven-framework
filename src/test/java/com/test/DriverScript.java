@@ -77,7 +77,6 @@ public class DriverScript extends Constant {
 					} catch (InvocationTargetException e) {
 						resultStatus = e.toString() + e.getCause();
 					}
-					// resultSet.add(resultStatus);
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
 						try {
 							screenshot.invoke(keywords, "abc.png");
@@ -89,7 +88,6 @@ public class DriverScript extends Constant {
 							resultStatus = e.toString() + e.getCause();
 						}
 
-						System.out.println("77777777777777777777");
 						break outerloop;
 					}
 					resultStatus = " ";
