@@ -69,8 +69,7 @@ public class DriverScript extends Constant {
 						else if (method[j].getParameterCount() == 1 && TSA.get(i).getData().length() > 0)
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getData());
 						else if (method[j].getParameterCount() == 2)
-							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
-									TSA.get(i).getData());
+							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
 						resultStatus = e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
