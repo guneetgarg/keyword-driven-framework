@@ -16,7 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-public class KeywordWrapper {
+public class KeywordWrapper extends Constant {
 	Logger log = LogManager.getLogger(KeywordWrapper.class);
 	ExcelUtil EU = ExcelUtil.getEUInstance();
 
@@ -171,7 +171,7 @@ public class KeywordWrapper {
 	public void getscreenshot(String filename) {
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(scrFile, new File(filename));
+			FileUtils.copyFile(scrFile, new File(getScreenShortDir() + filename + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

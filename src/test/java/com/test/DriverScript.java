@@ -52,7 +52,7 @@ public class DriverScript extends Constant {
 	public void execute(String tcid, String desc, String runmode) {
 		resultSet = new ArrayList<String>();
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
-			ArrayList<String> status = run(EU.getTestStep(tcid));
+			ArrayList<String> status = run(tcid, EU.getTestStep(tcid));
 			EU.writeExcel(getReportDir() + getExcelName(), tcid, status);
 			Assert.assertEquals("true", checkTCStatus(status));
 		} else if (!EU.isSheetExist(tcid)) {
@@ -71,7 +71,7 @@ public class DriverScript extends Constant {
 		return "true";
 	}
 
-	public ArrayList<String> run(List<TestStepAggregation> TSA) {
+	public ArrayList<String> run(String tcid, List<TestStepAggregation> TSA) {
 		outerloop: for (int i = 0; i < TSA.size(); i++) {
 			resultStatus = " ";
 			for (int j = 0; j < method.length; j++) {
@@ -95,7 +95,7 @@ public class DriverScript extends Constant {
 					}
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
 						try {
-							screenshot.invoke(keywords, "abc.png");
+							screenshot.invoke(keywords, tcid);
 						} catch (IllegalAccessException e) {
 							resultStatus += e.toString() + e.getCause();
 						} catch (IllegalArgumentException e) {

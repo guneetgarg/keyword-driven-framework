@@ -14,8 +14,6 @@ public class Constant {
 
 	public void setExcelName(String excelName) {
 		String aa[]=excelName.split("/");
-		System.out.println(aa.length);
-		System.out.println(aa[aa.length-1]);
 		Constant.excelName = aa[aa.length-1];
 	}
 
