@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -44,13 +45,16 @@ public class DriverScript extends Constant {
 		screenshot = keywords.getClass().getMethod("getscreenshot", String.class);
 		setExcelUtil(excelFilePath);
 		keywords.moveFileToDirectory(getExcelUtil(), getReportDir());
+
 	}
 
 	@Test(dataProvider = "getTestRunnerModeData", dataProviderClass = Dataprovider.class)
 	public void execute(String tcid, String desc, String runmode) {
 		resultSet = new ArrayList<String>();
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
-			run(EU.getTestStep(tcid));
+			ArrayList<String> status = run(EU.getTestStep(tcid));
+			Assert.assertEquals("true", checkTCStatus(status));
+
 			System.out.println(resultSet.size() + "********************");
 		} else if (!EU.isSheetExist(tcid)) {
 			log.info("Sheet Do Not Exist");
@@ -59,10 +63,20 @@ public class DriverScript extends Constant {
 		}
 	}
 
+	public String checkTCStatus(ArrayList<String> status) {
+
+		for (String ss : status) {
+			if (!(ss.equalsIgnoreCase("pass"))) {
+				return ss;
+			}
+		}
+		return "true";
+	}
+
 	public ArrayList<String> run(List<TestStepAggregation> TSA) {
-		for (int i = 0; i < TSA.size(); i++) {
+		outerloop: for (int i = 0; i < TSA.size(); i++) {
 			resultStatus = " ";
-			outerloop: for (int j = 0; j < method.length; j++) {
+			for (int j = 0; j < method.length; j++) {
 				if (method[j].getName().equals(TSA.get(i).getKeyword())) {
 					try {
 						if (method[j].getParameterCount() == 0)
@@ -75,21 +89,21 @@ public class DriverScript extends Constant {
 							resultStatus = (String) method[j].invoke(keywords, TSA.get(i).getObject(),
 									TSA.get(i).getData());
 					} catch (IllegalAccessException e) {
-						resultStatus = e.toString() + e.getCause();
+						resultStatus += e.toString() + e.getCause();
 					} catch (IllegalArgumentException e) {
-						resultStatus = e.toString() + e.getCause();
+						resultStatus += e.toString() + e.getCause();
 					} catch (InvocationTargetException e) {
-						resultStatus = e.toString() + e.getCause();
+						resultStatus += e.toString() + e.getCause();
 					}
 					if (!(resultStatus.equalsIgnoreCase("pass"))) {
 						try {
 							screenshot.invoke(keywords, "abc.png");
 						} catch (IllegalAccessException e) {
-							resultStatus = e.toString() + e.getCause();
+							// resultStatus = e.toString() + e.getCause();
 						} catch (IllegalArgumentException e) {
-							resultStatus = e.toString() + e.getCause();
+							// resultStatus = e.toString() + e.getCause();
 						} catch (InvocationTargetException e) {
-							resultStatus = e.toString() + e.getCause();
+							// resultStatus = e.toString() + e.getCause();
 						}
 						resultSet.add(resultStatus);
 						break outerloop;
