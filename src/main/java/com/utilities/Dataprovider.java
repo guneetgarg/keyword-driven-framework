@@ -23,5 +23,4 @@ public class Dataprovider {
 		}
 		return data;
 	}
-
 }
