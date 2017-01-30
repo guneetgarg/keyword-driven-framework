@@ -13,8 +13,8 @@ public class Constant {
 	}
 
 	public void setExcelName(String excelName) {
-		String aa[] = excelName.split("/");
-		Constant.excelName = aa[aa.length - 1];
+		String fileName[] = excelName.split("/");
+		Constant.excelName = fileName[fileName.length - 1];
 	}
 
 	public String getScreenShortDir() {
