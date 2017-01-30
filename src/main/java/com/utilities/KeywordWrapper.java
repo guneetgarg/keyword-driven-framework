@@ -70,7 +70,6 @@ public class KeywordWrapper extends Constant {
 	}
 
 	public String navigate(String url) {
-		waitSleep();
 		log.info("Navigating to URL ->" + url);
 		try {
 			driver.get(url);

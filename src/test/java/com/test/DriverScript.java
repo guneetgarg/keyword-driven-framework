@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -55,6 +54,7 @@ public class DriverScript extends Constant {
 		if (EU.isSheetExist(tcid) && runmode.equalsIgnoreCase("Y")) {
 			ArrayList<String> status = run(tcid, EU.getTestStep(tcid));
 			EU.writeExcel(getReportDir() + getExcelName(), tcid, status);
+			keywords.closeBroswer();
 			Assert.assertEquals("true", checkTCStatus(status));
 		} else if (!EU.isSheetExist(tcid)) {
 			log.info("Sheet Do Not Exist");
@@ -63,10 +63,6 @@ public class DriverScript extends Constant {
 		}
 	}
 
-	@AfterClass
-	public void checkBrowser(){
-		keywords.closeBroswer();
-	}
 	public String checkTCStatus(ArrayList<String> status) {
 		for (String ss : status) {
 			if (!(ss.equalsIgnoreCase("pass"))) {
